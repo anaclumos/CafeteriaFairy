@@ -2,22 +2,24 @@
 # CafeteriaFairy.py
 ### 급식요정.py
 -----
-## 기능
-교육청 홈페이지의 HTML에서 급식 정보를 추출하여 JSON 파일을 생성합니다.
+### [이 문서를 한글로 읽기](https://github.com/anaclumos/CafeteriaFairy/blob/master/README%20in%20Korean.md)
 
-## 용도
-카카오민사에 탑재될 예정입니다.
+## Feature
+Extracts cafeteria food information from a website of Ministry of Education, Republic of Korea, and creates JSON database with it.
 
-## 장점
+## Usage
+Planned to be added in [kakaominsa](https://github.com/anaclumos/kakaominsa)
 
-|장점|설명|
+## Strength
+|Strength|Explanation|
 |---|---|
-|풍부한 데이터|메뉴 정보 뿐만 아니라 알레르기 정보, 원산지 정보, 영양 정보를 받아올 수 있음|
-|적응성|교육청 웹 구조가 변화하더라도 안정적으로 정보를 추출할 수 있도록 설계됨|
-|코드 재사용성|모든 함수가 모듈화되어 언제든 재사용이 가능함|
-|자원 절약성|JSON 데이터베이스 내에 필요한 자료가 없을 시에만 실행되어 resource 절약적임|
+|Richer data|Can get menu info, allergic info, food source info, and nutrition info.|
+|Adaptiveness|It can adaptively parse the MoE web, eventhough the MoE modifies the web structure.|
+|High code reusability|Every function is moduled, therefore can be reused anytime.|
+|Resource efficient|It only executes when the JSON database does not have the requested data.|
 
-## 예시 database 생성 결과
+
+## Example database result
 
 ```
 {
