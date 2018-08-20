@@ -1,18 +1,15 @@
 """
-
 CafeteriaFairy.py
 급식요정.py
 
 Developed by Sunghyun Cho on August 19th, 2018.
-
 This code is under GPL 3.0 license.
+
 Anyone can reuse this code under the following conditions:
-    0. Explicitly mention "Sunghyun Cho" as the original creator.
+    0. Explicitly mention "Sunghyun Cho" as the original creator, and should be visible without accessing the source code.
     1. If this code is reused in any public manner, the entire project code should be disclosed.
-    2. If any part of the code is changed, the difference should be explicitly mentioned.
+    2. If any part of the code is changed, the change should be explicitly mentioned.
     3. Every code derived from this code should keep the GPL 3.0 license.
-
-
 """
 #----------------------------
 
@@ -22,7 +19,7 @@ def set_target_URL(regionCode, accessCode, schoolCode, schoolName):
 
 #----------------------------
 
-# copy HTML data from a given URL.
+# Copy HTML data from a given URL.
 def get_HTML_from(url):
     print("Copying HTML data from " + url + "...")
     import requests
@@ -35,7 +32,7 @@ def get_HTML_from(url):
 
 #----------------------------
 
-# fetch code of table part from given HTML data.
+# Fetch code of table part from given HTML data.
 def fetch_Table_From(dataHTML):
     print("Fetching table...")
     from lxml import html
@@ -47,8 +44,8 @@ def fetch_Table_From(dataHTML):
 
 #----------------------------
 
-# set JSON keys to input data.
-# in this case, key would be the "date," and value would be the "food info."
+# Set JSON keys to input data.
+# In this case, key would be the "date," and value would be the "food info."
 def set_JSON_key_with(table, dictionary):
     print("Setting JSON keys...")
     firstRow = table.pop(0)
@@ -59,7 +56,7 @@ def set_JSON_key_with(table, dictionary):
     print("Done.\n")
 #----------------------------
 
-# extract data from HTML string to fill dictionary.
+# Extract data from HTML string to fill dictionary.
 def extract_data_and_fill_dictionary_from(table, dictionary, keychain):
     print("Filling up dictionary...")
     for n in range(len(table)):
@@ -83,7 +80,7 @@ def extract_data_and_fill_dictionary_from(table, dictionary, keychain):
 #----------------------------
 
 # In order to replace preformatted HTML value (which is illegible,)
-# this part prettyformats food list with HTML <br/> tag.
+# This part prettyformats food list with HTML <br/> tag.
 def substitude_value_from(table, dictionary, keychain, timePeriod):
     print("Prettyformatting food data...")
     days = str(table[1]).split("</td>")
@@ -107,7 +104,7 @@ def substitude_value_from(table, dictionary, keychain, timePeriod):
 
 #----------------------------
 
-# creates JSON file from dictionary, and save it to a target folder with expected file name.
+# Creates JSON file from dictionary, and save it to a target folder with expected file name.
 def export_to_JSON_from(dictionary, expectedFileName, targetFolder):
     import os
     import json
@@ -121,8 +118,7 @@ def export_to_JSON_from(dictionary, expectedFileName, targetFolder):
 #----------------------------
 
 # Creates a file name with schoolname and time period.
-# For example, file containing dinner info of the 34th week
-# in Stanford will be named "Stanford343"
+# For example, file containing dinner info of the 34th week in Stanford will be named "Stanford343"
 def make_file_name_with(schoolName, timePeriod):
     import datetime
     today = datetime.date.today()
@@ -143,6 +139,7 @@ schoolName = "민족사관고등학교"
 #----------------------------
 
 # Main method.
+# Needs preconfigured folder named "FoodJSON" in this case.
 for timePeriod in range(1,4):
     FoodData = {}
     targetURL = set_target_URL(regionCode, accessCode, schoolCode, schoolName)
@@ -154,3 +151,5 @@ for timePeriod in range(1,4):
     substitude_value_from(table, FoodData, keychain, timePeriod)
     expectedFileName = make_file_name_with(schoolName, timePeriod)
     export_to_JSON_from(FoodData, expectedFileName, "/FoodJSON")
+
+#---------------------------- End of code.
