@@ -4,13 +4,9 @@ CafeteriaFairy.py
 
 Developed by Sunghyun Cho on August 19th, 2018.
 This code is under GPL 3.0 license.
-
-Anyone can reuse this code under the following conditions:
-    0. Explicitly mention "Sunghyun Cho" as the original creator at somewhere visible without accessing the source code.
-    1. If this code is reused in any public manner, the entire project code should be disclosed.
-    2. If any part of the code is changed, the change should be explicitly mentioned.
-    3. Every code derived from this code should keep the GPL 3.0 license.
+Infringing this license is legally prohibited.
 """
+
 #----------------------------
 
 # Set target URL to copy HTML data.
