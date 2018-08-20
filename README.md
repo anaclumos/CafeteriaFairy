@@ -1,4 +1,4 @@
-###### Developed by Sunghyun Cho from August 20th, 2018.
+###### Developed by Sunghyun Cho on August 20th, 2018.
 -----
 # CafeteriaFairy.py
 ### 급식요정.py
