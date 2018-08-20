@@ -3,6 +3,7 @@ CafeteriaFairy.py
 급식요정.py
 
 Developed by Sunghyun Cho on August 19th, 2018.
+
 This code is under GPL 3.0 license.
 Infringing this license is legally prohibited.
 """
@@ -50,6 +51,7 @@ def set_JSON_key_with(table, dictionary):
         if temp[0] != "":
             dictionary[temp[0]] = {}
     print("Done.\n")
+
 #----------------------------
 
 # Extract data from HTML string to fill dictionary.
@@ -73,6 +75,7 @@ def extract_data_and_fill_dictionary_from(table, dictionary, keychain):
             for x in range(7):
                 dictionary[keychain[x]][ah[0]] = ad[x]
     print("Done.\n")
+
 #----------------------------
 
 # In order to replace preformatted HTML value (which is illegible,)
