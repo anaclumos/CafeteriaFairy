@@ -11,8 +11,8 @@ Infringing this license is legally prohibited.
 #----------------------------
 
 # Set target URL to copy HTML data.
-def set_target_URL(regionCode, accessCode, schoolCode, schoolName):
-    return "http://"+regionCode+"/"+ accessCode+"?"+"schulCode="+schoolCode+"&insttNm="+schoolName+"&schulCrseScCode=4&schMmealScCode="+str(timePeriod)
+def set_target_URL(regionCode, accessCode, schoolCode, schoolName, schoolType):
+    return "http://"+regionCode+"/"+ accessCode+"?"+"schulCode="+schoolCode+"&insttNm="+schoolName+"&schulCrseScCode="+schoolType+"&schMmealScCode="+str(timePeriod)
 
 #----------------------------
 
@@ -80,7 +80,7 @@ def extract_data_and_fill_dictionary_from(table, dictionary, keychain):
 
 # In order to replace preformatted HTML value (which is illegible,)
 # This part prettyformats food list with HTML <br/> tag.
-def substitude_value_from(table, dictionary, keychain, timePeriod):
+def prettyformat(table, dictionary, keychain, timePeriod):
     print("Prettyformatting food data...")
     days = str(table[1]).split("</td>")
     result = []
@@ -97,8 +97,37 @@ def substitude_value_from(table, dictionary, keychain, timePeriod):
                 oneday[x] = oneday[x][oneday[x].rfind(">") + 1:]
         if oneday != "":
             result.append(oneday)
+    result = result[:7]
     for x in range(7):
-        dictionary[keychain[x]][foodtype] = result[x]
+        try:
+            dictionary[keychain[x]][foodtype] = result[x]
+        except IndexError:
+            continue
+            print("Skipping, No menu.")
+
+    import copy
+    nutritionKey = ["에너지(kcal)", "탄수화물(g)", "단백질(g)","지방(g)", "비타민A(R.E)", "티아민(mg)", "리보플라빈(mg)", "비타민C(mg)", "칼슘(mg)","철분(mg)"]
+    foodmenuKey = ["조식", "중식", "석식"]
+    comment = ["비고"]
+    peopleNumber = ["급식인원"]
+    
+    nutritionData = {}
+    foodMenuData = {}
+    commentData = {}
+    peopleNumberData = {}
+
+    for x in range(len(dictionary)):
+        copiedData = copy.deepcopy(dictionary[keychain[x]])
+        for info in dictionary[keychain[x]]:
+            if info in nutritionKey:
+                nutritionData[info] = copiedData.pop(info)
+            if info in foodmenuKey:
+                foodMenuData[info] = copiedData.pop(info)
+            if info in comment:
+                commentData[info] = copiedData.pop(info)
+            if info in peopleNumber:
+                peopleNumberData[info] = copiedData.pop(info)
+        dictionary[keychain[x]] = {"메뉴 정보": foodMenuData[foodtype], "인원 정보": peopleNumberData[peopleNumber[0]], "영양 정보": copy.deepcopy(nutritionData), "원산지 정보": copiedData, "비고": commentData[comment[0]]}
     print("Done.\n")
 
 #----------------------------
@@ -108,7 +137,7 @@ def export_to_JSON_from(dictionary, expectedFileName, targetFolder):
     import os
     import json
     projectFolder = os.path.dirname(os.path.abspath(__file__))
-    filename = projectFolder + "/" + targetFolder + "/" + expectedFileName+ ".json"
+    filename = projectFolder + targetFolder + "/" + expectedFileName+ ".json"
     print("Exporting JSON File to " + filename + "...")
     with open(filename, "w") as fp:
         fp.write(json.dumps(dictionary, indent=4, sort_keys=False, ensure_ascii=False))
@@ -130,10 +159,12 @@ def make_file_name_with(schoolName, timePeriod):
 #----------------------------
 
 # School data.
+
 regionCode = "stu.kwe.go.kr"
 accessCode = "sts_sci_md01_001.do"
 schoolCode = "K100000414"
 schoolName = "민족사관고등학교"
+schoolType = "4"
 
 #----------------------------
 
@@ -141,13 +172,13 @@ schoolName = "민족사관고등학교"
 # Needs preconfigured folder named "FoodJSON" in this case.
 for timePeriod in range(1,4):
     FoodData = {}
-    targetURL = set_target_URL(regionCode, accessCode, schoolCode, schoolName)
+    targetURL = set_target_URL(regionCode, accessCode, schoolCode, schoolName, schoolType)
     dataHTML = get_HTML_from(targetURL)
     table = fetch_Table_From(dataHTML)
     set_JSON_key_with(table, FoodData)
     keychain = list(FoodData.keys())
     extract_data_and_fill_dictionary_from(table, FoodData, keychain)
-    substitude_value_from(table, FoodData, keychain, timePeriod)
+    prettyformat(table, FoodData, keychain, timePeriod)
     expectedFileName = make_file_name_with(schoolName, timePeriod)
     export_to_JSON_from(FoodData, expectedFileName, "/FoodJSON")
 
