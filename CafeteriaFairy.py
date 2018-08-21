@@ -159,7 +159,6 @@ def make_file_name_with(schoolName, timePeriod):
 #----------------------------
 
 # School data.
-
 regionCode = "stu.kwe.go.kr"
 accessCode = "sts_sci_md01_001.do"
 schoolCode = "K100000414"
@@ -179,6 +178,7 @@ for timePeriod in range(1,4):
     keychain = list(FoodData.keys())
     extract_data_and_fill_dictionary_from(table, FoodData, keychain)
     prettyformat(table, FoodData, keychain, timePeriod)
+    autoshrink(FoodData)
     expectedFileName = make_file_name_with(schoolName, timePeriod)
     export_to_JSON_from(FoodData, expectedFileName, "/FoodJSON")
 
