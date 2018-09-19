@@ -2,7 +2,7 @@
 # CafeteriaFairy.py
 ### 급식요정.py
 -----
-### [이 문서를 한글로 읽기](README in Korean.md)
+### [이 문서를 한글로 읽기](README.md)
 
 ## Feature
 Extracts cafeteria food information from a website of Ministry of Education, Republic of Korea, and creates JSON database with it.
