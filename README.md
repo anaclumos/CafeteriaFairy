@@ -3,7 +3,7 @@
 ### 급식요정.py
 -----
 
-### [View this document in English](README in English.md)
+### [View this document in English](English.md)
 
 ## 기능
 교육청 홈페이지의 HTML에서 급식 정보를 추출하여 JSON 데이터베이스를 생성합니다.
