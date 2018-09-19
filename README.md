@@ -3,13 +3,13 @@
 ### 급식요정.py
 -----
 
-### [View this document in English](https://github.com/anaclumos/CafeteriaFairy/blob/master/README%20in%20English.md)
+### [View this document in English](README in English.md)
 
 ## 기능
 교육청 홈페이지의 HTML에서 급식 정보를 추출하여 JSON 데이터베이스를 생성합니다.
 
 ## 용도
-카카오민사에 탑재될 예정입니다.
+카카오민사에 탑재될 예정입니다. (현재 비공개 상태)
 
 ## 장점
 
